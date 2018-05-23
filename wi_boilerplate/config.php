@@ -14,13 +14,13 @@ function myautoloader($classname) {
 spl_autoload_register('myautoloader');
 
 /** Connection */
-define(DB_SERVER, 'localhost');
-define(DB_USER, 'kne.wi');
-define(DB_PASSWORD, '21436587');
-define(DB_DATABASE, 'kne_wi_sde_dk');
+define(DB_SERVER, 'YOUR-DATABSE-SERVER');
+define(DB_USER, 'YOUR-DATABASE-USERNAME');
+define(DB_PASSWORD, 'YOUR-DATABASE-PASSWORD');
+define(DB_DATABASE, 'YOUR-DATABASE-NAME');
 $conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
 $conn->set_charset('utf8');
 /** Connection */
 
-define('ROOT', '/wi_boilerplate');
-define('PROJECT_NAME', 'bilbixen');
+define('ROOT', '/PATH-TO-WEB-SERVERS-ROOT');
+define('PROJECT_NAME', 'YOUR-PROJECT-NAME-AS-IT-SHOULD-APPEAR-IN-PAGE-TITLES-ETC');
