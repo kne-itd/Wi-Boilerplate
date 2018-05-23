@@ -3,6 +3,7 @@ A boilerplate/framework for WI-students at SDE
 
 Use:
 1. Create a database according to your project's demands.
+    1. You will need a table called "user" i order to make the sign in/sign up system work
 2. Copy the content of the directory "wi-boilerplate" to your project's location.
 3. Edit the file "config.php" according to your own info.
 4. Edit the file "scaffold/index.php":
