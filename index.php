@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'config.php';
-print_r($_GET);
+//print_r($_GET);
 /** Routing */
 if (empty($_GET['page'])){
     $page = 'home';
