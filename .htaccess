@@ -1,0 +1,66 @@
+ ## Nyt errordokument til 404 fejl (File Not Found)
+#ErrorDocument 404 "Dit store fjols. Du har igen tastet forkert!"
+#ErrorDocument 404 /pretty/notfound.html
+#ErrorDocument 403 "Vi serverer ikke spiritus"
+#ErrorDocument 410 "Vi serverer ikke cola længere"
+
+## RedirectPermanent tager 2 argumenter:
+## en relativ URL til den 'gamle' side
+## og en fuld HTTP adresse til den 'nye' side
+#RedirectPermanent /pretty/index.html http://kaj.wi9.ots.dk/pretty/index.php?p=0
+
+## RewriteRules
+RewriteEngine on
+##RewriteBase /
+
+## RewriteRules benytter regulære udtryk til at omskrive URL'er
+## Fordelen er, at brugeren ser den 'kønne' URL i browserens adresselinje
+## ^ betyder 'i starten af strengen'
+## $ betyder 'i slutningen af strengen'
+## | : alternation ' /goddag|hejsa|moin/ ' eller /^mi(ch|k)ael/
+## [] character classes - tilladelse af karakterer på en bestemt plads /[a-zA-ZæøåÆØÅ]/
+## [^] negated character class /^[^ø]/ 'må ikke starte me ø'
+## . er joker-tegn /[a...]/ 'a efterfulgt af hvilket som helst tegn 3 gange'
+## \ escape. \.dk$ '.dk i slutningen'
+## * Quantifier. /[0-9]*/ 'et tal 0 - flere gange'
+## + Quantifier. /([0-9] )+/ 'et tal efterfulgt af mellemrum 1 - flere gange'
+## {} Quantifier. /[0-9]{2,5}/ '2 - 5 tal'. /[0-9]{3,}/ '3 tal'
+##
+#RewriteRule ^1\.php$ index.php?p=1
+#RewriteRule ^2\.php$ index.php?p=2 
+#RewriteRule ^3\.php$ index.php?p=3 
+#RewriteRule ^4\.php$ index.php?p=4 
+## Ovenstående svarer til:
+#RewriteRule ^([0-4]+).php$ index.php?p=$1
+
+#RewriteRule ^kager\.php$ index.php?p=5
+#RewriteRule ^bread\.php$ pretty.php?p=6
+#RewriteRule ^kaffe\.php$ pretty.php?p=7
+#RewriteRule ^te\.php$ pretty.php?p=8
+# Flaget F genererer en 403 error (Forbidden)
+#RewriteRule ^whisky$ .*  [F]
+# Flaget G genererer en 403 error (Gone)
+#RewriteRule ^cola$ .*  [G]
+
+#Flaget R=301 genererer en permanent redirect
+#RewriteRule ^(.*).html$ (.*).php [R=301] 
+
+#  exclude js and css dirs from mod rewrite
+#  exclude test dir (including QUnit tests)
+RewriteRule ^(js|css|audio|video|gfx|img|images|test|admin/code|scaffold|favicon\.ico) - [L]
+
+#RewriteCond %{REQUEST_URI} !^/favicon\.ico [NC]
+#RewriteCond %{REQUEST_URI} favicon\.ico    [NC]
+#RewriteRule (.*) http://kne.wi.sde.dk/favicon.ico [R=301,L]
+
+# Flaget NC gør søgningen case-INsensitive
+RewriteCond %{REQUEST_FILENAME} !-f [NC,OR]
+#
+RewriteCond %{REQUEST_FILENAME} !-d [NC]
+#
+# L-flaget fortæller. at vi har nået enden af cond-blokken
+
+#RewriteRule ^(.*)/(.*)$ pretty.php?page=$1&sub=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)/(.*)/(.*)$ index.php?page=$1&action=$2&id=$3&%{QUERY_STRING} [L]
+RewriteRule ^(.*)/(.*)$ index.php?page=$1&action=$2&%{QUERY_STRING} [L]
+RewriteRule ^(.*)$ index.php?page=$1&%{QUERY_STRING} [L]
