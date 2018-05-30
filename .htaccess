@@ -1,5 +1,5 @@
  ## Nyt errordokument til 404 fejl (File Not Found)
-#ErrorDocument 404 "Dit store fjols. Du har igen tastet forkert!"
+#ErrorDocument 404 "Du har nok tastet forkert!"
 #ErrorDocument 404 /pretty/notfound.html
 #ErrorDocument 403 "Vi serverer ikke spiritus"
 #ErrorDocument 410 "Vi serverer ikke cola længere"
@@ -47,7 +47,7 @@ RewriteEngine on
 
 #  exclude js and css dirs from mod rewrite
 #  exclude test dir (including QUnit tests)
-RewriteRule ^(js|css|audio|video|gfx|img|images|test|admin/code|scaffold|favicon\.ico) - [L]
+RewriteRule ^(js|css|audio|video|gfx|img|images|test|scaffold|favicon\.ico) - [L]
 
 #RewriteCond %{REQUEST_URI} !^/favicon\.ico [NC]
 #RewriteCond %{REQUEST_URI} favicon\.ico    [NC]
@@ -60,7 +60,10 @@ RewriteCond %{REQUEST_FILENAME} !-d [NC]
 #
 # L-flaget fortæller. at vi har nået enden af cond-blokken
 
-#RewriteRule ^(.*)/(.*)$ pretty.php?page=$1&sub=$2&%{QUERY_STRING} [L]
+RewriteRule ^admin/(.*)/(.*)/(.*)$ admin/index.php?page=$1&action=$2&id=$3&%{QUERY_STRING} [L]
+RewriteRule ^admin/(.*)/(.*)$ admin/index.php?page=$1&action=$2&%{QUERY_STRING} [L]
+RewriteRule ^admin/(.*)$ admin/index.php?page=$1&%{QUERY_STRING} [L]
+
 RewriteRule ^(.*)/(.*)/(.*)$ index.php?page=$1&action=$2&id=$3&%{QUERY_STRING} [L]
 RewriteRule ^(.*)/(.*)$ index.php?page=$1&action=$2&%{QUERY_STRING} [L]
 RewriteRule ^(.*)$ index.php?page=$1&%{QUERY_STRING} [L]
