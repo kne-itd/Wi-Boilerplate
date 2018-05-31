@@ -114,7 +114,12 @@ class Scaffold {
 	     if ($property['Extra'] == 'auto_increment') {
 		 continue;
 	     }
-	     $output .= "    '" . $property['Field'] . "'" . ' => $this->' . $property['Field'] . ','  . PHP_EOL;
+             if (strtolower($property['Field']) == 'password') {
+                 $output .= "    '" . $property['Field'] . "'" . ' => password_hash($this->' . $property['Field'] . ', PASSWORD_DEFAULT),'  . PHP_EOL;
+             } else {
+                 $output .= "    '" . $property['Field'] . "'" . ' => $this->' . $property['Field'] . ','  . PHP_EOL;
+             }
+	     
 	 }
 	 $output = rtrim($output, ",".PHP_EOL);
 	 $output .= PHP_EOL . '    );' . PHP_EOL . PHP_EOL;
