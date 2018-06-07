@@ -19,7 +19,7 @@
         <!-- Add icon library -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     </head>
-    <body>
+    <body class="d-flex flex-column justify-content-between">
         <header><?php require_once 'views/common/header.php';?></header>
        
         <div class="container-fluid">
